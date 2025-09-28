@@ -1,0 +1,345 @@
+{
+  "info": {
+    "_postman_id": "12345678-1234-1234-1234-123456789abc",
+    "name": "Game Club API",
+    "description": "A comprehensive collection for testing the Game Club API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "API Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "health"]
+            },
+            "description": "Check if the API is running and healthy"
+          },
+          "response": []
+        },
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "Get API information and available endpoints"
+          },
+          "response": []
+        }
+      ],
+      "description": "Health check and API information endpoints"
+    },
+    {
+      "name": "Clubs",
+      "item": [
+        {
+          "name": "Get All Clubs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/clubs",
+              "host": ["{{base_url}}"],
+              "path": ["clubs"]
+            },
+            "description": "Retrieve all game clubs"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Clubs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/clubs?search={{search_term}}",
+              "host": ["{{base_url}}"],
+              "path": ["clubs"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "{{search_term}}",
+                  "description": "Search term to filter clubs by name or description"
+                }
+              ]
+            },
+            "description": "Search clubs by name or description"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Club",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{club_name}}\",\n  \"description\": \"{{club_description}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs",
+              "host": ["{{base_url}}"],
+              "path": ["clubs"]
+            },
+            "description": "Create a new game club"
+          },
+          "response": []
+        }
+      ],
+      "description": "Club management endpoints"
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Get Events by Club",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/clubs/{{club_id}}/events",
+              "host": ["{{base_url}}"],
+              "path": ["clubs", "{{club_id}}", "events"]
+            },
+            "description": "Get all events for a specific club"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{event_title}}\",\n  \"description\": \"{{event_description}}\",\n  \"event_date\": \"{{event_date}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs/{{club_id}}/events",
+              "host": ["{{base_url}}"],
+              "path": ["clubs", "{{club_id}}", "events"]
+            },
+            "description": "Create a new event for a club"
+          },
+          "response": []
+        }
+      ],
+      "description": "Event management endpoints"
+    },
+    {
+      "name": "Error Testing",
+      "item": [
+        {
+          "name": "Create Club - Missing Name",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"A club without a name\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs",
+              "host": ["{{base_url}}"],
+              "path": ["clubs"]
+            },
+            "description": "Test validation error for missing club name"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Club - Missing Description",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Club\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs",
+              "host": ["{{base_url}}"],
+              "path": ["clubs"]
+            },
+            "description": "Test validation error for missing club description"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Club - Duplicate Name",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Gaming Enthusiasts\",\n  \"description\": \"Another club with the same name\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs",
+              "host": ["{{base_url}}"],
+              "path": ["clubs"]
+            },
+            "description": "Test conflict error for duplicate club name"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Events - Non-existent Club",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/clubs/999/events",
+              "host": ["{{base_url}}"],
+              "path": ["clubs", "999", "events"]
+            },
+            "description": "Test not found error for non-existent club"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Event - Missing Title",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"An event without a title\",\n  \"event_date\": \"2024-12-31T18:00:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs/{{club_id}}/events",
+              "host": ["{{base_url}}"],
+              "path": ["clubs", "{{club_id}}", "events"]
+            },
+            "description": "Test validation error for missing event title"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Event - Invalid Date",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Event\",\n  \"description\": \"An event with invalid date\",\n  \"event_date\": \"invalid-date\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/clubs/{{club_id}}/events",
+              "host": ["{{base_url}}"],
+              "path": ["clubs", "{{club_id}}", "events"]
+            },
+            "description": "Test validation error for invalid event date"
+          },
+          "response": []
+        }
+      ],
+      "description": "Error testing scenarios"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "club_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "club_name",
+      "value": "Test Gaming Club",
+      "type": "string"
+    },
+    {
+      "key": "club_description",
+      "value": "A test gaming club for API testing",
+      "type": "string"
+    },
+    {
+      "key": "event_title",
+      "value": "Test Event",
+      "type": "string"
+    },
+    {
+      "key": "event_description",
+      "value": "A test event for API testing",
+      "type": "string"
+    },
+    {
+      "key": "event_date",
+      "value": "2024-12-31T18:00:00Z",
+      "type": "string"
+    },
+    {
+      "key": "search_term",
+      "value": "gaming",
+      "type": "string"
+    }
+  ]
+}
