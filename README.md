@@ -97,18 +97,13 @@ game-club-api/
 ### Clubs
 
 - `GET /api/clubs` - Get all clubs
-- `GET /api/clubs/:id` - Get club by ID
+- `GET /api/clubs/?search={{name}}` - Get club by name
 - `POST /api/clubs` - Create new club
-- `PUT /api/clubs/:id` - Update club
-- `DELETE /api/clubs/:id` - Delete club
 
 ### Events
 
 - `GET /api/clubs/:id/events` - Get all events for a club
-- `GET /api/clubs/:id/events/:eventId` - Get specific event
 - `POST /api/clubs/:id/events` - Create new event for a club
-- `PUT /api/clubs/:id/events/:eventId` - Update event
-- `DELETE /api/clubs/:id/events/:eventId` - Delete event
 
 ### Other
 
@@ -227,7 +222,6 @@ The application includes a comprehensive logging system that tracks:
   - Request/response examples
   - Error handling guide
   - Data model specifications
-  - Testing instructions
 
 ### Validation Rules
 
@@ -256,35 +250,6 @@ The API uses a centralized query service to manage all database operations, prov
 - **Comprehensive Logging**: All queries are logged with context
 - **Reusable Methods**: Common operations can be reused across controllers
 - **Error Handling**: Consistent error handling for database operations
-
-### Query Classes
-
-#### ClubQueries
-- `getAllClubs(searchTerm)` - Get all clubs with optional search
-- `getClubById(clubId)` - Get club by ID
-- `clubExists(clubId)` - Check if club exists
-- `findClubByName(name)` - Find club by name
-- `createClub(clubData)` - Create new club
-- `updateClub(clubId, updateData)` - Update club
-- `deleteClub(clubId)` - Delete club
-
-#### EventQueries
-- `getEventsByClub(clubId)` - Get all events for a club
-- `getEventById(eventId)` - Get event by ID
-- `eventExists(eventId)` - Check if event exists
-- `createEvent(eventData)` - Create new event
-- `updateEvent(eventId, updateData)` - Update event
-- `deleteEvent(eventId)` - Delete event
-- `getEventsByClubPaginated(clubId, options)` - Get events with pagination
-- `getUpcomingEvents(clubId, days)` - Get upcoming events
-
-### Benefits
-- **Separation of Concerns**: Controllers focus on HTTP logic, queries handle data
-- **Maintainability**: Easy to update database operations
-- **Testability**: Queries can be tested independently
-- **Consistency**: Standardized query patterns across the application
-- **Performance**: Optimized queries with proper logging
-
 
 ## Database
 
